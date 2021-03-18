@@ -154,6 +154,12 @@ namespace {_contextNameSpace}
 
         private static string GenerateEqualsAndGetHashCode(string typeName, IReadOnlyCollection<string> properties, StringComparison stringComparison) =>
             $@"
+        //public override bool Equals(object obj)
+        //{{
+        //    if(obj == null || obj.GetType() != typeof({typeName})) return false;
+        //    return Equals(({typeName})obj);
+        //}}
+
         public bool Equals({typeName} obj)
         {{
             if(obj == null) return false;

@@ -96,7 +96,7 @@ Get latest [CsvLINQPadDriver.\*.lpx6](https://github.com/i2van/CsvLINQPadDriver/
   - Open LINQPad 6.
   - Click `Add connection` main window.
   - Click button `View more drivers...`
-  - Click button `Install driver from .LPX6 file...` and select downloaded .lpx6 file.
+  - Click button `Install driver from .LPX6 file...` and select downloaded `lpx6` file.
 
 ## Usage ##
 
@@ -165,43 +165,43 @@ string this[string index] { get; set; }
 
 #### ToString ####
 
-Formats object similar to PowerShell [Format-List](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/format-list).
-
 ```csharp
 string ToString();
 ```
 
+Formats object the way PowerShell [Format-List](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/format-list) does.
+
 #### GetHashCode ####
-
-Returns object hash code. Since object is mutable hash code is not cached and recalculated each time method is called. Depends on string comparison driver setting.
-
-Also note that each time driver is reloaded hash codes will be [different](https://andrewlock.net/why-is-string-gethashcode-different-each-time-i-run-my-program-in-net-core/).
 
 ```csharp
 int GetHashCode();
 ```
 
-### Equals ###
+Returns object hash code. Hash code is not cached and recalculated each time method is called. Depends on string comparison driver setting.
 
-Depends on string comparison driver setting.
+Also note that each time driver is reloaded hash codes will be [different](https://andrewlock.net/why-is-string-gethashcode-different-each-time-i-run-my-program-in-net-core/).
+
+#### Equals ####
 
 ```csharp
 bool Equals(T obj);
 bool Equals(object obj);
 ```
 
-### Indexers ###
+Depend on string comparison driver setting.
 
-See below.
+#### Indexers ####
 
 ```csharp
 string this[int index] { get; set; }
 string this[string index] { get; set; }
 ```
 
+See below.
+
 ### Properties Access ###
 
-- Generated data objects are writable, however saving changes is not supported.
+- Generated data objects are mutable, however saving changes is not supported.
 - Generated data object properties can be accessed either by name or via indexer.
 - Index can be integer (zero-based property index) or string (property name). If there is no index `IndexOutOfRangeException` will be thrown.
 
