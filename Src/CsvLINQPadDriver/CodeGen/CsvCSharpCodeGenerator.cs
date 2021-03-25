@@ -9,6 +9,8 @@ using System.Security;
 
 using Microsoft.CSharp;
 
+using Humanizer;
+
 using CsvLINQPadDriver.DataDisplay;
 using CsvLINQPadDriver.DataModel;
 using CsvLINQPadDriver.Helpers;
@@ -154,12 +156,6 @@ namespace {_contextNameSpace}
 
         private static string GenerateEqualsAndGetHashCode(string typeName, IReadOnlyCollection<string> properties, StringComparison stringComparison) =>
             $@"
-        //public override bool Equals(object obj)
-        //{{
-        //    if(obj == null || obj.GetType() != typeof({typeName})) return false;
-        //    return Equals(({typeName})obj);
-        //}}
-
         public bool Equals({typeName} obj)
         {{
             if(obj == null) return false;
@@ -203,9 +199,9 @@ namespace {_contextNameSpace}
             return ToClassName(table.ClassName);
 
             static string ToClassName(string? name) =>
-                string.IsNullOrEmpty(name)
+                string.IsNullOrWhiteSpace(name)
                     ? throw new ArgumentNullException(nameof(name), "Name is null or empty")
-                    : $"T{name}";
+                    : $"R{(name.Length < 3 ? name : name.Singularize())}";
         }
 
         public static string GetCodeTypeClassName(this Type type, params string[] genericParameters) =>
