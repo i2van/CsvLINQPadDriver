@@ -400,3 +400,6 @@ FodyWeavers.xsd
 # LINQPad
 *.lpx
 *.lpx?
+
+!Src/LPRun/LPRun/Bin/
+

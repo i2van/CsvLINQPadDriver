@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+#if !NET8_0_OR_GREATER
 using System.Runtime.Serialization;
+#endif
 using System.Threading.Tasks;
 
 namespace LPRun;
@@ -16,6 +18,7 @@ public class LPRunException : Exception
     {
     }
 
+#if !NET8_0_OR_GREATER
     /// <summary>
     /// Initializes a new instance of the <see cref="LPRunException" /> class with serialized data.
     /// </summary>
@@ -27,6 +30,7 @@ public class LPRunException : Exception
         : base(info, context)
     {
     }
+#endif
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LPRunException" /> class with a specified error message.

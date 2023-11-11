@@ -13,7 +13,7 @@
 * [Example](#example)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-  * [LINQPad 7/6](#linqpad-76)
+  * [LINQPad 8/7/6](#linqpad-876)
     * [NuGet](#nuget)
     * [Manual](#manual)
   * [LINQPad 5](#linqpad-5)
@@ -47,7 +47,7 @@
 
 ## Description ##
 
-CsvLINQPadDriver is LINQPad 7/6/5 data context dynamic driver for querying [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) files.
+CsvLINQPadDriver is LINQPad 8/7/6/5 data context dynamic driver for querying [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) files.
 
 * You can query data in CSV files with LINQ, just like it would be regular database. No need to write custom data model, mappings, etc.
 * Driver automatically generates new data types for every CSV file with corresponding properties and mappings for all the columns. Every column is a `string`, no data type detection is provided.
@@ -61,7 +61,7 @@ CsvLINQPadDriver is LINQPad 7/6/5 data context dynamic driver for querying [CSV]
 
 ## Download ##
 
-Latest [CsvLINQPadDriver.\*.lpx6/CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/releases) for LINQPad 7/6/5 manual installation.
+Latest [CsvLINQPadDriver.\*.lpx6/CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/releases) for LINQPad 8/7/6/5 manual installation.
 
 ## Example ##
 
@@ -94,7 +94,7 @@ public class CsvDataContext
     public CsvTableBase<RBook> Books { get; private set; }
 }
 
-// record/class for LINQPad 7/6, class for LINQPad 5.
+// record/class for LINQPad 8/7/6, class for LINQPad 5.
 public sealed record RAuthor
 {
     public string? Id { get; set; }
@@ -123,19 +123,20 @@ select new { author.Name, book.Title }
 
 ## Prerequisites ##
 
+* [LINQPad 8](https://www.linqpad.net/LINQPad8.aspx): [.NET 8](https://dotnet.microsoft.com/download/dotnet/8.0)/[.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0)/[.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
 * [LINQPad 7](https://www.linqpad.net/LINQPad7.aspx): [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0)/[.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)/[.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)/[.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 * [LINQPad 6](https://www.linqpad.net/LINQPad6.aspx): [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)/[.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 * [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx): [.NET Framework 4.7.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net471)
 
 ## Installation ##
 
-### LINQPad 7/6 ###
+### LINQPad 8/7/6 ###
 
 #### NuGet ####
 
 [![NuGet](https://img.shields.io/nuget/v/CsvLINQPadDriver)](https://www.nuget.org/packages/CsvLINQPadDriver)
 
-* Open LINQPad 7/6.
+* Open LINQPad 8/7/6.
 * Click `Add connection` link.
 * Click button `View more drivers...`
 * Click radio button `Show all drivers` and type `CsvLINQPadDriver`
@@ -145,7 +146,7 @@ select new { author.Name, book.Title }
 
 Get latest [CsvLINQPadDriver.\*.lpx6](https://github.com/i2van/CsvLINQPadDriver/releases) file.
 
-* Open LINQPad 7/6.
+* Open LINQPad 8/7/6.
 * Click `Add connection` link.
 * Click button `View more drivers...`
 * Click button `Install driver from .LPX6 file...` and select downloaded `lpx6` file.
@@ -161,7 +162,7 @@ Get latest [CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/r
 
 ## Usage ##
 
-CSV files connection can be added to LINQPad 7/6/5 the same way as any other connection.
+CSV files connection can be added to LINQPad 8/7/6/5 the same way as any other connection.
 
 * Click `Add connection`
 * Select `CSV Context Driver` and click `Next`
@@ -206,7 +207,7 @@ CSV files connection can be added to LINQPad 7/6/5 the same way as any other con
 
 ### Generation ###
 
-* Use [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) type: generate records instead of classes (LINQPad 7/6 only).
+* Use [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) type: generate records instead of classes (LINQPad 8/7/6 only).
 * Generate single type for similar files: single type will be generated for similar files which allows to join similar files and query over them. Relations support is limited.
   * Also show similar files non-grouped: show similar files non-grouped in addition to similar files groups.
 * Rename table:
@@ -253,7 +254,7 @@ Everything is `string`. Because there is no data type info in CSV files, this is
 
 ## Generated Data Object ##
 
-Generated data object is sealed mutable class or [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) (LINQPad 7/6 only). You can create record's shallow copy using [with](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) expression.
+Generated data object is sealed mutable class or [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) (LINQPad 8/7/6 only). You can create record's shallow copy using [with](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) expression.
 
 ### Methods ##
 
@@ -830,7 +831,7 @@ TimeOnly? ToTimeOnlySafe(
 
 ### Tools ###
 
-* [LINQPad 7](https://www.linqpad.net/LINQPad7.aspx)/[LINQPad 6](https://www.linqpad.net/LINQPad6.aspx)/[LINQPad 5](https://www.linqpad.net/LINQPad5.aspx)
+* [LINQPad 8](https://www.linqpad.net/LINQPad8.aspx)/[LINQPad 7](https://www.linqpad.net/LINQPad7.aspx)/[LINQPad 6](https://www.linqpad.net/LINQPad6.aspx)/[LINQPad 5](https://www.linqpad.net/LINQPad5.aspx)
 * [LINQPad Command-Line and Scripting (LPRun)](https://www.linqpad.net/lprun.aspx)
 
 ### Libraries ###

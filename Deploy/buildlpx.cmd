@@ -1,6 +1,6 @@
 @echo off
 
-set version=7.3.21
+set version=8.0.0
 set fileName=CsvLINQPadDriver.%version%
 set ext=lpx
 set ext6=%ext%6

@@ -1,5 +1,7 @@
 ﻿using System;
+#if !NET8_0_OR_GREATER
 using System.Runtime.Serialization;
+#endif
 
 namespace CsvLINQPadDriver;
 
@@ -11,10 +13,12 @@ public class ConvertException : Exception
     {
     }
 
+#if !NET8_0_OR_GREATER
     protected ConvertException(SerializationInfo info, StreamingContext context)
         : base(info, context)
     {
     }
+#endif
 
     internal static ConvertException Create(string type, string? value, Exception? innerException) =>
         new(type, value, innerException);

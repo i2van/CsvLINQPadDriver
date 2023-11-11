@@ -1,9 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>7.8.7</Version>
+    <Version>8.0.9</Version>
     <PackageReleaseNotes>LPRun $(Version.Split("-")[0])
-Added Driver.EnsureNotInstalledViaNuGet method.
-Added LinqScript.FromFile method.
-Added LinqScript.FromScript method.</PackageReleaseNotes>
+.NET 8.0 support</PackageReleaseNotes>
   </PropertyGroup>
 </Project>

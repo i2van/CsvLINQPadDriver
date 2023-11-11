@@ -8,6 +8,7 @@
 ## Table of Contents ##
 
 * [Description](#description)
+* [LPRun .NET Versions](#lprun-net-versions)
 * [Website](#website)
 * [Download](#download)
 * [Usage](#usage)
@@ -26,11 +27,28 @@
 
 ## Description ##
 
-LINQPad driver [LPRun](https://www.linqpad.net/lprun.aspx) unit/integration tests runner. Can be used for testing [LINQPad 7](https://www.linqpad.net/LINQPad7.aspx)/[LINQPad 6](https://www.linqpad.net/LINQPad6.aspx) drivers using LPRun or for running LINQPad scripts.
+LINQPad driver [LPRun](https://www.linqpad.net/lprun.aspx) unit/integration tests runner. Can be used for testing [LINQPad 8](https://www.linqpad.net/LINQPad8.aspx)/[LINQPad 7](https://www.linqpad.net/LINQPad7.aspx)/[LINQPad 6](https://www.linqpad.net/LINQPad6.aspx) drivers using LPRun or for running LINQPad scripts.
+
+## LPRun .NET Versions ##
+
+.NET versions supported by LPRun are listed below. In case of unsupported version LPRun fallbacks to the latest production .NET installed.
+
+| LPRun   | .NET 8.0 | .NET 7.0 | .NET 6.0 | .NET 5.0 | .NET 3.1 |
+|:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+|    8    |    ✔️    |    ✔️    |    ✔️    |          |          |
+|    7    |          |    ✔️    |    ✔️    |    ✔️    |    ✔️    |
+
+Use the following script to check the .NET version used by LPRun:
+
+```csharp
+<Query Kind="Expression"/>
+
+System.Environment.Version
+```
 
 ## Website ##
 
-LPRun is a part of [CsvLINQPadDriver for LINQPad 7/6/5](https://github.com/i2van/CsvLINQPadDriver). LPRun source code can be found [here](https://github.com/i2van/CsvLINQPadDriver/tree/master/Src/LPRun).
+LPRun is a part of the [CsvLINQPadDriver for LINQPad 8/7/6/5](https://github.com/i2van/CsvLINQPadDriver). LPRun source code can be found [here](https://github.com/i2van/CsvLINQPadDriver/tree/master/Src/LPRun).
 
 ## Download ##
 
@@ -254,7 +272,7 @@ var driverProperties = Mock.Of<IDriverProperties>(props =>
 
 ### Tools ###
 
-* [LINQPad 7](https://www.linqpad.net/LINQPad7.aspx)
+* [LINQPad 8](https://www.linqpad.net/LINQPad8.aspx)
 * [LINQPad Command-Line and Scripting](https://www.linqpad.net/lprun.aspx)
 
 ### NuGet ###
