@@ -12,7 +12,11 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [windows-11-arm, windows-latest]
 
     steps:
 
@@ -62,12 +66,14 @@ jobs:
     # Create LPX
 
     - name: Build LPX
+      if: ${{matrix.os == 'windows-latest'}}
       run: Deploy/buildlpx.cmd
 
     # Upload artifacts
 
     - name: Publish ${{env.SLN}} ${{env.CONFIG}}, ${{env.SLN5}} ${{env.CONFIG}}
       uses: actions/upload-artifact@v4.6.1
+      if: ${{matrix.os == 'windows-latest'}}
       with:
         name: ${{env.NAME}}${{env.BIN_POSTFIX}}
         path: |
