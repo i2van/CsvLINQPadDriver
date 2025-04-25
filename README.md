@@ -868,8 +868,8 @@ TimeOnly? ToTimeOnlySafe(
 
 ### Libraries
 
-* [CsvHelper](https://github.com/JoshClose/CsvHelper)
 * [AwesomeAssertions](https://github.com/AwesomeAssertions/AwesomeAssertions)
+* [CsvHelper](https://github.com/JoshClose/CsvHelper)
 * [Humanizer](https://github.com/Humanizr/Humanizer)
 * [IsExternalInit](https://github.com/manuelroemer/IsExternalInit)
 * [Microsoft.Bcl.HashCode](https://www.nuget.org/packages/Microsoft.Bcl.HashCode) (for LINQPad 5 only)
