@@ -23,7 +23,7 @@ jobs:
     # Set up
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4.3.0
+      uses: actions/setup-dotnet@v4.3.1
       with:
         dotnet-version: |
           9.0.x
@@ -42,7 +42,7 @@ jobs:
       run: dotnet test ${{env.SLN}} --configuration ${{env.CONFIG}} --no-build --verbosity normal
 
     - name: Create ${{env.SLN}} ${{env.CONFIG}} test report
-      uses: dorny/test-reporter@v1.9.1
+      uses: dorny/test-reporter@v2.0.0
       if: ${{success() || failure()}}
       with:
         name: tests
@@ -72,7 +72,7 @@ jobs:
     # Upload artifacts
 
     - name: Publish ${{env.SLN}} ${{env.CONFIG}}, ${{env.SLN5}} ${{env.CONFIG}}
-      uses: actions/upload-artifact@v4.6.1
+      uses: actions/upload-artifact@v4.6.2
       if: ${{matrix.os == 'windows-latest'}}
       with:
         name: ${{env.NAME}}${{env.BIN_POSTFIX}}
