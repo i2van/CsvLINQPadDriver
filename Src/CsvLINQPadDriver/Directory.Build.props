@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <Version>8.13.0</Version>
-    <PackageReleaseNotes>.NET 9 build.</PackageReleaseNotes>
+    <PackageReleaseNotes>Update CsvHelper.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
