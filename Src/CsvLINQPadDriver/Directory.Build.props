@@ -1,7 +1,8 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>8.13.0</Version>
-    <PackageReleaseNotes>Update CsvHelper.</PackageReleaseNotes>
+    <Version>8.14.0</Version>
+    <PackageReleaseNotes>Update UTF.Unknown</PackageReleaseNotes>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,7 +33,7 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Core-6.0 " Version="1.1.7" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.7" />
     <PackageReference Include="UnicodeCharsetDetector.Standard" Version="1.1.10" />
-    <PackageReference Include="UTF.Unknown" Version="2.5.1" />
+    <PackageReference Include="UTF.Unknown" Version="2.6.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net471' or '$(TargetFramework)' == 'netcoreapp3.1-windows'">
