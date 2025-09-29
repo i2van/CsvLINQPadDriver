@@ -13,11 +13,7 @@ echo on
 
 call :pack %fileName%-net9.%ext6%   net9.0-windows        || goto break
 call :pack %fileName%-net8.%ext6%   net8.0-windows        || goto break
-call :pack %fileName%-net7.%ext6%   net7.0-windows        || goto break
-call :pack %fileName%-net6.%ext6%   net6.0-windows        || goto break
-call :pack %fileName%-net5.%ext6%   net5.0-windows        || goto break
-call :pack %fileName%-net3.1.%ext6% netcoreapp3.1-windows || goto break
-call :pack %fileName%.%ext%         net471                || goto break
+call :pack %fileName%.%ext%         net481                || goto break
 
 :break
 

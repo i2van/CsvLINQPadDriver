@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <AssemblyName>CsvLINQPadDriver</AssemblyName>
     <RootNamespace>CsvLINQPadDriver</RootNamespace>
   </PropertyGroup>

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1-windows;net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows;net9.0-windows</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -35,7 +35,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackagesPaths>lib\netcoreapp3.1;lib\net5.0-windows7.0;lib\net6.0-windows7.0;lib\net7.0-windows7.0;lib\net8.0-windows7.0</PackagesPaths>
+    <PackagesPaths>lib\net8.0-windows7.0;lib\net9.0-windows7.0</PackagesPaths>
   </PropertyGroup>
 
   <ItemGroup>
