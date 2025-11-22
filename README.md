@@ -1,4 +1,4 @@
-# CsvLINQPadDriver for LINQPad 9/8/5
+# CsvLINQPadDriver for LINQPad
 
 [![Latest build](https://github.com/i2van/CsvLINQPadDriver/workflows/build/badge.svg)](https://github.com/i2van/CsvLINQPadDriver/actions)
 [![NuGet](https://img.shields.io/nuget/v/CsvLINQPadDriver)](https://www.nuget.org/packages/CsvLINQPadDriver)
@@ -13,7 +13,7 @@
 * [Example](#example)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-  * [LINQPad 9/8](#linqpad-98)
+  * [LINQPad](#linqpad)
     * [NuGet](#nuget)
     * [Manual](#manual)
   * [LINQPad 5](#linqpad-5)
@@ -47,7 +47,7 @@
 
 ## Description
 
-**CsvLINQPadDriver** is LINQPad 9/8/5 data context dynamic driver for querying [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) files.
+**CsvLINQPadDriver** is the LINQPad data context dynamic driver for querying [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) files.
 
 * You can query data in CSV files with LINQ, just like it would be regular database. No need to write custom data model, mappings, etc.
 * Driver automatically generates new data types for every CSV file with corresponding properties and mappings for all the columns. Every column is a `string`, no data type detection is provided.
@@ -61,7 +61,7 @@
 
 ## Download
 
-Latest [CsvLINQPadDriver.\*.lpx6/CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/releases) for LINQPad 9/8/5 manual installation.
+Latest [CsvLINQPadDriver.\*.lpx6/CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/releases) for LINQPad manual installation.
 
 ## Example
 
@@ -94,7 +94,7 @@ public class CsvDataContext
     public CsvTableBase<RBook> Books { get; private set; }
 }
 
-// record/class for LINQPad 9/8, class for LINQPad 5.
+// record/class for LINQPad, class for LINQPad 5.
 public sealed record RAuthor
 {
     public string? Id { get; set; }
@@ -123,19 +123,18 @@ select new { author.Name, book.Title }
 
 ## Prerequisites
 
-* [LINQPad 9](https://www.linqpad.net/linqpad9.aspx): [.NET 9](https://dotnet.microsoft.com/download/dotnet/9.0)
-* [LINQPad 8](https://www.linqpad.net/LINQPad8.aspx): [.NET 8](https://dotnet.microsoft.com/download/dotnet/8.0)
+* [LINQPad](https://www.linqpad.net): [.NET 10](https://dotnet.microsoft.com/download/dotnet/10.0)
 * [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx): [.NET Framework 4.8.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481)
 
 ## Installation
 
-### LINQPad 9/8
+### LINQPad
 
 #### NuGet
 
 [![NuGet](https://img.shields.io/nuget/v/CsvLINQPadDriver)](https://www.nuget.org/packages/CsvLINQPadDriver)
 
-* Open LINQPad 9/8.
+* Open LINQPad.
 * Click `Add connection` link.
 * Click button `View more drivers...`
 * Click radio button `Show all drivers` and type `CsvLINQPadDriver`
@@ -145,7 +144,7 @@ select new { author.Name, book.Title }
 
 Get latest [CsvLINQPadDriver.\*.lpx6](https://github.com/i2van/CsvLINQPadDriver/releases) file.
 
-* Open LINQPad 9/8.
+* Open LINQPad.
 * Click `Add connection` link.
 * Click button `View more drivers...`
 * Click button `Install driver from .LPX6 file...` and select downloaded `lpx6` file.
@@ -161,7 +160,7 @@ Get latest [CsvLINQPadDriver.\*.lpx](https://github.com/i2van/CsvLINQPadDriver/r
 
 ## Usage
 
-CSV files connection can be added to LINQPad 9/8/5 the same way as any other connection.
+CSV files connection can be added to LINQPad the same way as any other connection.
 
 * Click `Add connection`
 * Select `CSV Context Driver` and click `Next`
@@ -215,7 +214,7 @@ CSV files connection can be added to LINQPad 9/8/5 the same way as any other con
 
 ### Generation
 
-* Use [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) type: generate records instead of classes (LINQPad 9/8 only).
+* Use [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) type: generate records instead of classes (LINQPad 6+).
 * Generate single type for similar files: single type will be generated for similar files which allows to join similar files and query over them. Relations support is limited.
   * Also show similar files non-grouped: show similar files non-grouped in addition to similar files groups.
 * Rename table:
@@ -262,7 +261,7 @@ Everything is `string`. Because there is no data type info in CSV files, this is
 
 ## Generated Data Object
 
-Generated data object is sealed mutable class or [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) (LINQPad 9/8 only). You can create record's shallow copy using [with](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) expression.
+Generated data object is sealed mutable class or [record](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/records) (LINQPad 6+). You can create record's shallow copy using [with](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) expression.
 
 ### Methods
 
@@ -851,7 +850,7 @@ TimeOnly? ToTimeOnlySafe(
 
 * In case of `Cannot load type 'LINQPad.User.***' from cache` error, use connection context menu **Close all connections**.
 * In case of `BadDataException: You can ignore bad data by setting BadDataFound to null` error, check `Ignore bad data` at [Format](#format) section.
-* **CsvLINQPadDriver** writes `CsvLINQPadDriver.txt` log file to the `%LOCALAPPDATA%\LINQPad\Logs` for the [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx) or to the corresponding `%LOCALAPPDATA%\LINQPad\Logs.*` [LINQPad 9](https://www.linqpad.net/linqpad9.aspx)/[LINQPad 8](https://www.linqpad.net/LINQPad8.aspx) folders. This file is never truncated.
+* **CsvLINQPadDriver** writes `CsvLINQPadDriver.txt` log file to the `%LOCALAPPDATA%\LINQPad\Logs` for the [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx) or to the corresponding `%LOCALAPPDATA%\LINQPad\Logs.*` [LINQPad](https://www.linqpad.net) folders. This file is never truncated.
 
 ## Authors
 
@@ -862,7 +861,8 @@ TimeOnly? ToTimeOnlySafe(
 
 ### Tools
 
-* [LINQPad 9](https://www.linqpad.net/linqpad9.aspx)/[LINQPad 8](https://www.linqpad.net/LINQPad8.aspx)/[LINQPad 5](https://www.linqpad.net/LINQPad5.aspx)
+* [LINQPad](https://www.linqpad.net)
+* [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx)
 * [LINQPad Command-Line and Scripting (LPRun)](https://www.linqpad.net/lprun.aspx)
 
 ### Libraries

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Product>LINQPad 8/7/6 CSV Driver</Product>
-    <AssemblyTitle>LINQPad 8/7/6 CSV driver</AssemblyTitle>
+    <Product>LINQPad CSV Driver</Product>
+    <AssemblyTitle>LINQPad CSV driver</AssemblyTitle>
     <Title>$(Product)</Title>
     <Description>$(AssemblyTitle).</Description>
   </PropertyGroup>
@@ -35,10 +35,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackagesPaths>lib\net8.0-windows7.0;lib\net9.0-windows7.0</PackagesPaths>
+    <PackagesPaths>lib\net8.0-windows7.0;lib\net9.0-windows7.0;lib\net10.0-windows7.0</PackagesPaths>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="3.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>
 

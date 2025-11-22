@@ -27,17 +27,19 @@ jobs:
     # Set up
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4.3.1
+      uses: actions/setup-dotnet@v5.0.0
       with:
         dotnet-version: |
+          8.0.x
           9.0.x
+          10.0.x
 
     # Check out
 
     - name: Check out ${{env.SLN}}
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v6.0.0
 
-    # LINQPad 8/7/6
+    # LINQPad
 
     - name: Build ${{env.SLN}} ${{env.CONFIG}}
       run: dotnet build ${{env.SLN}} --configuration ${{env.CONFIG}} -p:GITHUB_ACTIONS=true
@@ -46,7 +48,7 @@ jobs:
       run: dotnet test ${{env.SLN}} --configuration ${{env.CONFIG}} --no-build --verbosity normal
 
     - name: Create ${{env.SLN}} ${{env.CONFIG}} test report
-      uses: dorny/test-reporter@v2.1.0
+      uses: dorny/test-reporter@v2.2.0
       if: ${{success() || failure()}}
       with:
         name: tests
@@ -76,7 +78,7 @@ jobs:
     # Upload artifacts
 
     - name: Publish ${{env.SLN}} ${{env.CONFIG}}, ${{env.SLN5}} ${{env.CONFIG}}
-      uses: actions/upload-artifact@v4.6.2
+      uses: actions/upload-artifact@v5.0.0
       if: ${{matrix.os == 'windows-latest'}}
       with:
         name: ${{env.NAME}}${{env.BIN_POSTFIX}}

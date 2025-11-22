@@ -87,6 +87,14 @@ internal static class SchemaBuilder
 
         void AddFiles()
         {
+            const string staticModifier =
+#if NETCOREAPP
+                "static "
+#else
+                ""
+#endif
+            ;
+
             foreach (var tableCodeGroup in tableCodeGroups.Where(static codeGroup => codeGroup.Count() > 1))
             {
                 var codeNames = tableCodeGroup.Select(static typeCodeResult => typeCodeResult.CodeName).ToImmutableList();
@@ -105,7 +113,7 @@ internal static class SchemaBuilder
                     DragText = $@"new []
 {{
 {string.Join(Environment.NewLine, codeNames.Select(static n => $"\t{n},"))}
-}}.SelectMany(n => n)
+}}.SelectMany({staticModifier}_ => _)
 "
                 });
 
