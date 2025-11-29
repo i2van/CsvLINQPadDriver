@@ -19,7 +19,7 @@ namespace CsvLINQPadDriver.DataDisplay;
 
 internal sealed class CsvRowMemberProvider : ICustomMemberProvider
 {
-    private static readonly Dictionary<Type, ProviderData> ProvidersDataCache = new();
+    private static readonly Dictionary<Type, ProviderData> ProvidersDataCache = [];
 
     private readonly object _objectToDisplay;
     private readonly ProviderData _providerData;

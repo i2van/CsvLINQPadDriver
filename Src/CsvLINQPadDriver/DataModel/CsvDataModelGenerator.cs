@@ -121,7 +121,7 @@ internal sealed class CsvDataModelGenerator
                 }
 
                 var fileName = Path.GetFileName(file);
-                var fileDir = (Path.GetDirectoryName($"{file.Remove(0, baseDir.Length)}x") ?? string.Empty).TrimStart(Path.DirectorySeparatorChar);
+                var fileDir = (Path.GetDirectoryName($"{file[baseDir.Length..]}x") ?? string.Empty).TrimStart(Path.DirectorySeparatorChar);
                 var codeName = fableNameFormatFunc?.Invoke(fileIndex++) ??
                                (Path.GetFileNameWithoutExtension(fileName) + (string.IsNullOrWhiteSpace(fileDir) ? string.Empty : $"_{fileDir}")).GetSafeCodeName();
 
