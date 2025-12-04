@@ -233,7 +233,7 @@ public sealed partial class LPRunTests
             );
 
         static IEnumerable<StringComparison> GetStringComparisons() =>
-            Enum.GetValues(typeof(StringComparison)).Cast<StringComparison>();
+            Enum.GetValues<StringComparison>();
 
         static string GetStringComparisonContext(StringComparison stringComparison) =>
             $"new {{ StringComparison = StringComparison.{stringComparison} }}";

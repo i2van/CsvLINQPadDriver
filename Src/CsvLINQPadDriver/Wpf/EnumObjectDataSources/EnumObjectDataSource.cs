@@ -4,11 +4,16 @@ using System.Linq;
 
 namespace CsvLINQPadDriver.Wpf.EnumObjectDataSources;
 
-internal abstract class EnumObjectDataSource<T> where T: Enum
+internal abstract class EnumObjectDataSource<T> where T : struct, Enum
 {
     // ReSharper disable once UnusedMethodReturnValue.Global
     public Tuple<T, string>[] GetValues() =>
-        Enum.GetValues(typeof(T)).OfType<T>().Select(value =>
+#if NET5_0_OR_GREATER
+        Enum.GetValues<T>()
+#else
+        Enum.GetValues(typeof(T)).Cast<T>()
+#endif
+        .Select(value =>
         {
             var valueAsString = value.ToString();
             var fieldInfo = typeof(T).GetField(valueAsString);

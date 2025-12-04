@@ -6,9 +6,16 @@ namespace CsvLINQPadDriver.Extensions;
 
 internal static class EnumExtensions
 {
-    public static Func<int, string> GetFormatFunc<T>(this T value) where T: Enum
+    public static Func<int, string> GetFormatFunc<T>(this T value) where T: struct, Enum
     {
-        var name = Enum.GetName(typeof(T), value);
+        var name =
+#if NET5_0_OR_GREATER
+            Enum.GetName(value)
+#else
+            Enum.GetName<T>(typeof(T), value)
+#endif
+            ;
+
         if (name is null)
         {
             throw new InvalidEnumArgumentException($"Unknown {typeof(T).Name} {value}");
