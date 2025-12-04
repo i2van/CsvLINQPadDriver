@@ -7,7 +7,7 @@ namespace CsvLINQPadDriver.Wpf.EnumObjectDataSources;
 internal abstract class EnumObjectDataSource<T> where T : struct, Enum
 {
     // ReSharper disable once UnusedMethodReturnValue.Global
-    public Tuple<T, string>[] GetValues() =>
+    public static Tuple<T, string>[] GetValues() =>
 #if NET5_0_OR_GREATER
         Enum.GetValues<T>()
 #else

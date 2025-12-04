@@ -12,7 +12,7 @@ internal static class EnumExtensions
 #if NET5_0_OR_GREATER
             Enum.GetName(value)
 #else
-            Enum.GetName<T>(typeof(T), value)
+            Enum.GetName(typeof(T), value)
 #endif
             ;
 
