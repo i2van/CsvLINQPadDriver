@@ -48,7 +48,7 @@ jobs:
       run: dotnet test ${{env.SLN}} --configuration ${{env.CONFIG}} --no-build --verbosity normal
 
     - name: Create ${{env.SLN}} ${{env.CONFIG}} test report
-      uses: dorny/test-reporter@v2.2.0
+      uses: dorny/test-reporter@v2.3.0
       if: ${{success() || failure()}}
       with:
         name: tests
@@ -78,7 +78,7 @@ jobs:
     # Upload artifacts
 
     - name: Publish ${{env.SLN}} ${{env.CONFIG}}, ${{env.SLN5}} ${{env.CONFIG}}
-      uses: actions/upload-artifact@v5.0.0
+      uses: actions/upload-artifact@v6.0.0
       if: ${{matrix.os == 'windows-latest'}}
       with:
         name: ${{env.NAME}}${{env.BIN_POSTFIX}}
