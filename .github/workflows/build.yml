@@ -1,4 +1,4 @@
-﻿name: build
+name: build
 
 permissions:
   contents: read
@@ -48,7 +48,7 @@ jobs:
       run: dotnet test ${{env.SLN}} --configuration ${{env.CONFIG}} --no-build --verbosity normal
 
     - name: Create ${{env.SLN}} ${{env.CONFIG}} test report
-      uses: dorny/test-reporter@v2.3.0
+      uses: dorny/test-reporter@v2.5.0
       if: ${{success() || failure()}}
       with:
         name: tests
