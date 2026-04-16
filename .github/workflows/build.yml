@@ -61,7 +61,7 @@ jobs:
       uses: microsoft/setup-msbuild@v3
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v3.1.0
+      uses: NuGet/setup-nuget@v4
 
     - name: Restore ${{env.SLN5}}
       run: nuget restore ${{env.SLN5}}
