@@ -61,7 +61,7 @@ jobs:
       uses: microsoft/setup-msbuild@v3
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v3.0.0
+      uses: NuGet/setup-nuget@v3.1.0
 
     - name: Restore ${{env.SLN5}}
       run: nuget restore ${{env.SLN5}}
@@ -78,7 +78,7 @@ jobs:
     # Upload artifacts
 
     - name: Publish ${{env.SLN}} ${{env.CONFIG}}, ${{env.SLN5}} ${{env.CONFIG}}
-      uses: actions/upload-artifact@v7.0.0
+      uses: actions/upload-artifact@v7.0.1
       if: ${{matrix.os == 'windows-latest'}}
       with:
         name: ${{env.NAME}}${{env.BIN_POSTFIX}}
