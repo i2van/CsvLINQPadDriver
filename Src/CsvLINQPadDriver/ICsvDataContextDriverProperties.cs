@@ -141,7 +141,7 @@ public interface ICsvDataContextDriverProperties
     /// <summary>
     /// Indicates that the spaces should be trimmed.
     /// </summary>
-    bool TrimSpaces { get; }
+    bool TrimSpaces { get; set; }
 
     /// <summary>
     /// Indicates that the CSV parsing mode should be used.
@@ -156,7 +156,7 @@ public interface ICsvDataContextDriverProperties
     /// <summary>
     /// The spaces trimming method.
     /// </summary>
-    WhitespaceTrimOptions WhitespaceTrimOptions { get; }
+    WhitespaceTrimOptions WhitespaceTrimOptions { get; set; }
 
     /// <summary>
     /// Indicates that the CsvHelper separator auto-detection should be used.

@@ -25,6 +25,7 @@ namespace CsvLINQPadDriverTest;
 public sealed partial class LPRunTests
 {
     private static readonly string Files = Context.GetDataFullPath("**.csv");
+    private static readonly string TrimSeparatorFiles = Context.GetDataFullPath("TrimSeparator.tsv");
 
     public sealed record ScriptWithDriverPropertiesTestData(string LinqScriptName, string? Context, ICsvDataContextDriverProperties DriverProperties, params string?[] Defines)
     {
@@ -175,6 +176,25 @@ public sealed partial class LPRunTests
                         defaultStringComparison,
                         useSingleClassForSameFiles: useSingleClassForSameFiles,
                         renameTable: true)));
+
+            // Trim spaces, including separator inside quotes: https://github.com/i2van/CsvLINQPadDriver/issues/9
+            yield return new (WhitespaceTrimOptions? WhitespaceTrimOptions, string Quoted, string Unquoted)[]
+                {
+                    (null,                                                 @"\t b \t", " c "),
+                    (WhitespaceTrimOptions.Trim,                           @"\t b \t", "c"),
+                    (WhitespaceTrimOptions.InsideQuotes,                   @"\t b \t", " c "),
+                    (WhitespaceTrimOptions.All,                            @"\t b \t", "c"),
+                    (WhitespaceTrimOptions.InsideQuotesIncludingSeparator, "b",        " c "),
+                    (WhitespaceTrimOptions.AllIncludingSeparator,          "b",        "c")
+                }
+                .Select(static trim => new ScriptWithDriverPropertiesTestData(
+                    "TrimSeparator",
+                    $@"new {{ Quoted = ""{trim.Quoted}"", Unquoted = ""{trim.Unquoted}"" }}",
+                    GetDefaultCsvDataContextDriverPropertiesObject(
+                        defaultStringComparison,
+                        files: TrimSeparatorFiles,
+                        trimSpaces: trim.WhitespaceTrimOptions.HasValue,
+                        whitespaceTrimOptions: trim.WhitespaceTrimOptions.GetValueOrDefault())));
         }
 
         IEnumerable<ICsvDataContextDriverProperties> GetCsvDataContextDriverProperties()
@@ -210,9 +230,14 @@ public sealed partial class LPRunTests
             int skipLeadingRowsCount = 0,
             bool renameTable = false,
             bool useSingleClassForSameFiles = true,
-            TableNameFormat tableNameFormat = TableNameFormat.table_1) =>
+            TableNameFormat tableNameFormat = TableNameFormat.table_1,
+            string? files = null,
+            bool trimSpaces = false,
+            WhitespaceTrimOptions whitespaceTrimOptions = WhitespaceTrimOptions.All) =>
             Mock.Of<ICsvDataContextDriverProperties>(csvDataContextDriverProperties =>
-                csvDataContextDriverProperties.Files == Files &&
+                csvDataContextDriverProperties.Files == (files ?? Files) &&
+                csvDataContextDriverProperties.TrimSpaces == trimSpaces &&
+                csvDataContextDriverProperties.WhitespaceTrimOptions == whitespaceTrimOptions &&
                 csvDataContextDriverProperties.AutoDetectEncoding &&
                 csvDataContextDriverProperties.DebugInfo &&
                 csvDataContextDriverProperties.DetectRelations &&

@@ -198,7 +198,7 @@ CSV files connection can be added to LINQPad the same way as any other connectio
 * Escape: the character used to escape characters. `"` if empty.
 * Quote: the character used to quote fields. `"` if empty.
 * Skip leading rows: allow to skip the specified number of leading rows.
-* Trim spaces: allow to trim spaces around fields and/or inside quotes around fields.
+* Trim spaces: allow to trim spaces around fields and/or inside quotes around fields. Optionally trim separator inside quotes too, e.g., `\t` for tab-separated files.
 * Allow comments: allow single-line comments - lines starting with `#` (which is used by default) will be ignored.
 * Header detection: detect or add header with specific column fallback name format if header could not be detected.
   * Header detection approach: specify whether header is present or not, or how to detect it by symbols it consists of.
