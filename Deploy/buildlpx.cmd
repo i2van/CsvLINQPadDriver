@@ -1,6 +1,6 @@
 @echo off
 
-set version=8.15.0
+set version=8.16.0
 set fileName=CsvLINQPadDriver.%version%
 set ext=lpx
 set ext6=%ext%6
@@ -43,6 +43,10 @@ if exist %folder%\Microsoft.Bcl.*.dll set additional=^
 %folder%\Humanizer.dll ^
 %folder%\Microsoft.WindowsAPICodePack.dll ^
 %folder%\Microsoft.WindowsAPICodePack.Shell.dll ^
+%folder%\System.Buffers.dll ^
+%folder%\System.Memory.dll ^
+%folder%\System.Numerics.Vectors.dll ^
+%folder%\System.Runtime.CompilerServices.Unsafe.dll ^
 %folder%\System.Threading.Tasks.Extensions.dll ^
 %folder%\UnicodeCharsetDetector.dll ^
 %folder%\UtfUnknown.dll

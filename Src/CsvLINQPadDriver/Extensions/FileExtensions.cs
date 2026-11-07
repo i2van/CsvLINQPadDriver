@@ -15,7 +15,6 @@ using Humanizer;
 using UnicodeCharsetDetector;
 
 using CsvHelper;
-using CsvHelper.Configuration;
 
 using CsvLINQPadDriver.CodeGen;
 
@@ -230,7 +229,7 @@ internal static partial class FileExtensions
 
         string[] GetHeader()
         {
-            var header = csvParser.Record;
+            var header = csvParser.GetRecord();
             var headerFormatFunc = headerFormat.GetFormatFunc();
 
             if (!header!.IsPresent(addHeader, headerDetection))
@@ -375,7 +374,7 @@ internal static partial class FileExtensions
                 return false;
             }
 
-            var headerRow = csvParser.Record;
+            var headerRow = csvParser.GetRecord();
 
             // No columns.
             if (!headerRow!.Any())
@@ -392,7 +391,7 @@ internal static partial class FileExtensions
                 return false;
             }
 
-            var dataRow = csvParser.Record;
+            var dataRow = csvParser.GetRecord();
 
             // Column count differs.
             if (headerRow!.Length != dataRow!.Length)
@@ -505,7 +504,7 @@ internal static partial class FileExtensions
     private static string GetHumanizedFileSize(long size) =>
         size.Bytes().Humanize("0.#");
 
-    private static CsvParser CreateCsvParser(
+    private static CsvReader CreateCsvParser(
         string fileName,
         string? csvSeparator,
         NoBomEncoding noBomEncoding,
@@ -524,35 +523,37 @@ internal static partial class FileExtensions
     {
         const int bufferSize = 4096 * 20;
 
-        var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
+        const char defaultQuoteChar  = '"';
+        const char defaultEscapeChar = '"';
+
+        var separator = GetSeparator();
+        var mode      = GetCsvMode();
+        var quote     = quoteChar ?? defaultQuoteChar;
+        var escape    = mode == CsvMode.Escape ? escapeChar ?? defaultEscapeChar : CsvReaderOptions.Default.Escape;
+
+        // Separator within whitespace characters is trimmed inside quotes only, outside quotes it still separates fields.
+        var trimSeparator = whitespaceTrimOptions is WhitespaceTrimOptions.AllIncludingSeparator or WhitespaceTrimOptions.InsideQuotesIncludingSeparator;
+
+        var csvReaderOptions = new CsvReaderOptions
         {
-            DetectDelimiter          = csvSeparator is null,
-            AllowComments            = allowComments,
-            HasHeaderRecord          = false,
-            DetectColumnCountChanges = false,
-            IgnoreBlankLines         = ignoreBlankLines,
-            Mode                     = GetCsvMode(),
-            TrimOptions              = GetTrimOptions(),
-            BufferSize               = bufferSize,
-            ProcessFieldBufferSize   = bufferSize
+            Separator           = separator,
+            DetectSeparatorHint = false,
+            CommentPrefix       = allowComments ? commentChar ?? InlineComment[0] : null,
+            HasHeader           = false,
+            FieldCountMismatch  = CsvFieldCountHandling.Allow,
+            MissingField        = CsvMissingFieldHandling.ReturnEmpty,
+            MalformedData       = ignoreBadData ? CsvMalformedDataHandling.Recover : CsvMalformedDataHandling.Throw,
+            SkipEmptyLines      = ignoreBlankLines,
+            Mode                = mode,
+            Quote               = quote,
+            Escape              = escape,
+            TrimWhitespace      = whitespaceTrimOptions is WhitespaceTrimOptions.All or WhitespaceTrimOptions.Trim or WhitespaceTrimOptions.AllIncludingSeparator,
+            TrimInsideQuotes    = whitespaceTrimOptions is WhitespaceTrimOptions.All or WhitespaceTrimOptions.InsideQuotes or WhitespaceTrimOptions.AllIncludingSeparator or WhitespaceTrimOptions.InsideQuotesIncludingSeparator,
+            WhitespaceCharacters = new string(WhiteSpaceChars
+                .Where(ch => (trimSeparator || ch != separator) && ch != quote && ch != escape)
+                .ToArray()),
+            BufferSize          = bufferSize
         };
-
-        csvConfiguration.Delimiter    = csvSeparator ?? csvConfiguration.Delimiter;
-        csvConfiguration.Comment      = commentChar ?? csvConfiguration.Comment;
-        csvConfiguration.Escape       = escapeChar ?? csvConfiguration.Escape;
-        csvConfiguration.Quote        = quoteChar ?? csvConfiguration.Quote;
-        csvConfiguration.BadDataFound = ignoreBadData ? null : csvConfiguration.BadDataFound;
-
-        var whiteSpaceChars = WhiteSpaceChars
-            .Except(csvConfiguration.Delimiter.Length == 1
-                ? [csvConfiguration.Delimiter[0]]
-                : [])
-            .ToArray();
-
-        if (whiteSpaceChars.Any())
-        {
-            csvConfiguration.WhiteSpaceChars = whiteSpaceChars;
-        }
 
         var stream = OpenFile(fileName, doNotLockFiles);
 
@@ -560,26 +561,31 @@ internal static partial class FileExtensions
 
         stream.Position = 0;
 
-        var csvParser = new CsvParser(new StreamReader(stream, encoding, !autoDetectEncoding, bufferSize / sizeof(char)), csvConfiguration);
+        var csvParser = CsvReader.Create(new StreamReader(stream, encoding, !autoDetectEncoding, bufferSize / sizeof(char)), csvReaderOptions);
 
         SkipLeadingRows();
 
         return csvParser;
 
-        TrimOptions GetTrimOptions() =>
-            whitespaceTrimOptions switch
+        char? GetSeparator()
+        {
+            if (csvSeparator is null)
             {
-                null                               => TrimOptions.None,
-                WhitespaceTrimOptions.All          => TrimOptions.Trim | TrimOptions.InsideQuotes,
-                WhitespaceTrimOptions.Trim         => TrimOptions.Trim,
-                WhitespaceTrimOptions.InsideQuotes => TrimOptions.InsideQuotes,
-                _                                  => throw new InvalidEnumArgumentException($"Unknown {nameof(WhitespaceTrimOptions)} {whitespaceTrimOptions}")
-            };
+                return null;
+            }
+
+            if (csvSeparator.Length != 1 || csvSeparator[0] > 127)
+            {
+                throw new NotSupportedException($"CSV separator '{csvSeparator}' is not supported: it must be a single ASCII character");
+            }
+
+            return csvSeparator[0];
+        }
 
         CsvMode GetCsvMode() =>
             csvMode switch
             {
-                null or CsvModeOptions.Default     => CsvMode.RFC4180,
+                null or CsvModeOptions.Default     => CsvMode.Rfc4180,
                 CsvModeOptions.Escape              => CsvMode.Escape,
                 CsvModeOptions.NoEscape            => CsvMode.NoEscape,
                 _                                  => throw new InvalidEnumArgumentException($"Unknown {nameof(CsvModeOptions)} {csvMode}")
@@ -653,7 +659,7 @@ internal static partial class FileExtensions
         }
     }
 
-    private static IEnumerable<string[]> CsvReadRows(
+    internal static IEnumerable<string[]> CsvReadRows(
         string fileName,
         string? csvSeparator,
         NoBomEncoding noBomEncoding,
@@ -689,8 +695,20 @@ internal static partial class FileExtensions
 
         while (csvParser.Read())
         {
-            yield return csvParser.Record!;
+            yield return csvParser.GetRecord();
         }
+    }
+
+    private static string[] GetRecord(this CsvReader csvReader)
+    {
+        var record = new string[csvReader.FieldCount];
+
+        for (var i = 0; i < record.Length; i++)
+        {
+            record[i] = csvReader.GetString(i);
+        }
+
+        return record;
     }
 
     private static bool IsPresent(this IEnumerable<string> header, bool addHeader, HeaderDetection headerDetection)
