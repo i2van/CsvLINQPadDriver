@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;net11.0-windows</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -35,7 +35,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackagesPaths>lib\net8.0-windows7.0;lib\net9.0-windows7.0;lib\net10.0-windows7.0</PackagesPaths>
+    <PackagesPaths>lib\net10.0-windows7.0;lib\net11.0-windows7.0</PackagesPaths>
   </PropertyGroup>
 
   <ItemGroup>

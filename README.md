@@ -123,7 +123,7 @@ select new { author.Name, book.Title }
 
 ## Prerequisites
 
-* [LINQPad](https://www.linqpad.net): [.NET 10](https://dotnet.microsoft.com/download/dotnet/10.0)
+* [LINQPad](https://www.linqpad.net): [.NET 11](https://dotnet.microsoft.com/download/dotnet/11.0)
 * [LINQPad 5](https://www.linqpad.net/LINQPad5.aspx): [.NET Framework 4.8.1](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481)
 
 ## Installation
