@@ -1,7 +1,8 @@
 ﻿<Project>
   <PropertyGroup>
-    <Version>8.16.0</Version>
-    <PackageReleaseNotes>CsvHelper 34.0.0</PackageReleaseNotes>
+    <Version>8.17.0</Version>
+    <PackageReleaseNotes>.NET 11 support.
+.NET 8/9 support ended.</PackageReleaseNotes>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
@@ -27,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="34.0.0" />
+    <PackageReference Include="CsvHelper" Version="34.1.0" />
     <PackageReference Include="LINQPad.Reference" Version="1.3.1" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Core-6.0" Version="1.1.9" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell-6.0" Version="1.1.9" />
