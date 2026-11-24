@@ -8,8 +8,8 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   NAME: CsvLINQPadDriver
-  SLN:  CsvLINQPadDriver.sln
-  SLN5: CsvLINQPadDriver.LINQPad5.sln
+  SLN:  CsvLINQPadDriver.slnx
+  SLN5: CsvLINQPadDriver.LINQPad5.slnx
   CONFIG: Release
   BIN_POSTFIX: .Bin
   RETENTION_DAYS: 1

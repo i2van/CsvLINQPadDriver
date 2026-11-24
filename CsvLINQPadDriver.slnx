@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Src/CsvLINQPadDriver/CsvLINQPadDriver.csproj" />
+  <Project Path="Tests/CsvLINQPadDriverTest/CsvLINQPadDriverTest.csproj" />
+</Solution>
